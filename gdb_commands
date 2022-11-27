@@ -1,0 +1,19 @@
+#Running Program/Moving around
+r - run
+n - next
+s - step
+c - continue
+
+#Break points
+b - break
+d - delete break point
+
+#Show variables
+p - print value 
+w - watch variables
+info locals
+info args
+
+#TUI
+layout next  (show code in window)
+

@@ -1,0 +1,27 @@
+https://github.com/simonmaster/gitbase.git	 --- base
+https://github.com/simonmaster/gitnote.git	 --- notes
+
+###
+### create global cred
+###
+git config --global user.email "simoncommander@yahoo.com"
+git config --global user.name "simonmaster"
+
+
+### …or create a new repository on the command line
+echo "# gitbase" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/simonmaster/gitbase.git
+git push -u origin main
+
+### …or push an existing repository from the command line
+git remote add origin https://github.com/simonmaster/gitbase.git
+git branch -M main
+git push -u origin main
+
+### …or import code from another repository
+
+
