@@ -1,0 +1,81 @@
+Network protocol:
+
+TCP/IP
+     (1) reliable
+     (2) packet are deliver in the correct seq
+     (3) preformance is not as fast since more work are required
+     (4) point to point (not broadcast base)
+     (5) able to communicate cross network
+
+UDP/IP
+     (1) do not guarante delivery
+     (2) faster than TCP/IP since it did a lot less in "control"
+     (3) broadcast base so send one packet and multiple people 
+		will able to recive the packet.
+     (4) Usually will only able to broadcast in the same network.
+
+multicast vs unicast
+Multicast typical will require "multicast router to do this"
+     (1) Support multiple networks
+     (2) Using UDP
+     (2) packet
+     (3) Multicast allow net
+     Reading:
+	https://www.geeksforgeeks.org/difference-between-unicast-broadcast-and-multicast-in-computer-network/
+     example: tick distribution network
+              boardcast msg 
+
+Implementation:
+     Current implementation of the network api are via socket interface.
+
+what is OSI model:
+     OSI is a suggestion model(idea) of how network suppose to be implemented.
+     It seperated the implementation into seven different parts,
+         each part of the implemention will be a lot to under and create.
+
+     Bask in the 80s, the TCP/IP network didn't exist under "UNIX" enviroment.
+     IBM and many big cooparations tried to implement 
+         but failed (more than 3 yrss)
+     Bill Joy pick the document of TCP/IP RFC and start his own implementation.
+         He created the basic socket communication under UNIX envirment (BSD).
+         The first protype take him (team) two week to deliver.
+
+     The socket libray become the "de facto" communicate for the past 30yrs.
+     People still try to explain the socket with OSI. (what is joke!)
+
+
+########### Important concepts
+UNDERSTAND OF BYTE ordering
+	https://www.youtube.com/watch?v=T1C9Kj_78ek      
+	big endian vs little endian
+	networking byte order is using "big endian" 
+
+#######
+SOCKET PROGRAMMING
+
+There is three different type interface construct for networking programming.
+
+(1) read/write
+(2) control - socket, bind, connect, accept, ioctl
+(3) data struct (db) - struct inet_addr, 
+      struct hostent *gethostbyname(const char *name);
+      struct hostent *gethostbyaddr(const void *addr, socklen_t len, int type);
+
+(A) socket communication basically utilize generic UNIX: read/write.
+(B) control are via ioctl
+(C) data struct use to specify requirement for the underline interface
+      i.e. struct hostent -> to specify a host or group of host
+        
+######
+Command useful for network programming.
+
+netstat - can be use to figure out what the current net related ports.
+lsof - can be use to find out what port is in use and who is using it.
+route - so the routing information.
+
+
+
+
+
+
+
