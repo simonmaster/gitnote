@@ -71,10 +71,44 @@ Command useful for network programming.
 
 netstat - can be use to figure out what the current net related ports.
 lsof - can be use to find out what port is in use and who is using it.
-route - so the routing information.
+route - so the routing information
 
 
+#########################################################
+options we must know
 
+
+/* ensure the socket can be reused before timer expired.
+*/
+        value = 1;
+        if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR,
+                (void *)&value, sizeof(value))) {
+            sprintf(errbuf, "Can't set SO_REUSEADDR (%d) - %d",
+                    errno, s);
+            close(s);
+            return(-1);
+        }
+
+/* non-blocking io
+*/
+    /* flag=1 delay
+    *  flag=0 nodelay
+    */
+    if (fcntl(fd, F_SETFL, flag) < 0) {
+        sprintf(errbuf, "fcntl (F_SETFL %x) failed, errno = %d",
+                flag, errno);
+        return (-1);
+    }
+
+/* find out how many bytes there for read
+*/
+	int value;
+        if ( ioctl(fd, I_NREAD, &value) < 0 ) {
+		/* failed */
+		perror("Faild to find outstanding bytes in socket");
+	} else {
+		printf("Got %d bytes for read...\n", value);
+	}
 
 
 

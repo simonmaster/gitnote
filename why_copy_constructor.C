@@ -10,13 +10,13 @@ using namespace std;
 //
 class Foo {
 private:
-	void _initHelper() {
+	void _initHelper( string tag ) {
 		myCounter = objCounter++;		// save object counter and 
 										// inc the global object counter my Foo
 		myValue = myCounter * 100;
 		s = new string;
 		*s = getStatus();
-		cout << "_initHelper " << *s << '\n';
+		cout << "_initHelper " << tag << *s << '\n';
 	}
 public:
 	string getStatus() {
@@ -28,11 +28,45 @@ public:
 
 	// constructor
 	Foo() {
-		_initHelper();
+		_initHelper( "Constructor" );
 	}
 	~Foo() {
 		cout << "\nDestructor " << *s <<'\n';
 		delete s;
+	}
+
+	// copy constuctor
+	Foo(const Foo& f) {
+		_initHelper("Copy constructor");
+		myValue = f.myValue;
+		// myCounter = f.myCounter; // dont copy the counter
+		*s = getStatus();
+	}
+
+	// assignment operator
+	Foo& operator= (const Foo& f) {
+		_initHelper("assignment operator");
+		myValue = f.myValue;
+		// myCounter = f.myCounter; // dont copy the counter
+		*s = getStatus();
+		return *this;
+	}
+
+	// move constructor
+	Foo(Foo&& f) {
+		_initHelper("move constructor");
+		myValue = f.myValue;
+		// myCounter = f.myCounter; // dont copy the counter
+		*s = getStatus();
+	}
+
+	// move assignment operator
+	Foo& operator= (Foo&& f) {
+		_initHelper("move assignment operator");
+		myValue = f.myValue;
+		// myCounter = f.myCounter; // dont copy the counter
+		*s = getStatus();
+		return *this;
 	}
 
 private:
@@ -52,7 +86,7 @@ private:
 //
 //	Location for private storage of the objCounter
 //
-int Foo::objCounter = 0;
+int Foo::objCounter = 1;
 
 
 //
@@ -73,6 +107,9 @@ int main(int ac, char * av[]) {
 	cout << "instantiate B\n";
 	Foo B;
 	cout << "B " << B << "\n";
+
+	Foo C = std::move(B);
+
 
 #if 0
 	printObj("B", B);
